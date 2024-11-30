@@ -17,7 +17,7 @@ public class Assento {
         this.numero = numero;
     }
 
-    public boolean getOcupado() {
+    public boolean isOcupado() {
         return ocupado;
     }
 

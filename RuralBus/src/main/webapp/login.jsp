@@ -19,7 +19,7 @@
     <section class="hero">
         <div class="container">
             <h2>Bem-vindo de volta!</h2>
-            <form class="search-form" action="login" method="post">
+            <form class="search-form" action="processaLogin.do" method="post">
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
 

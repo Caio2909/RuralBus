@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="classes.Cliente" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -24,19 +26,24 @@
                 </ul>
             </nav>
             <div class="auth">
-                <button id="loginButton">Login</button>
-                <script>
+    			 <c:choose>
+                    <c:when test="${not empty usuarioLogado}">
+                        <p>Bem-vindo, ${usuarioLogado.nome.split(' ')[0]}!</p>
+                        <form action="logout.jsp" method="post">
+                            <button type="submit">Logout</button>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <button id="loginButton">Login</button>
+                    </c:otherwise>
+                </c:choose>
+			</div>
+			<script>
     		document.getElementById('loginButton').addEventListener('click', function () {
         	window.location.href = 'login.jsp'; // Redireciona para a página de login
     			});
 				</script>
-                <select>
-                    <option value="pt">PT</option>
-                    <option value="en">EN</option>
-                    <option value="es">ES</option>
-                </select>
             </div>
-        </div>
     </header>
 
 <section class="hero">

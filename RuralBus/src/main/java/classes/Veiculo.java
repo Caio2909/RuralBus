@@ -2,10 +2,10 @@ package classes;
 
 public class Veiculo {
     String placa;
-    Integer capacidade;
+    int capacidade;
     Assento[] assentos;
 
-    public Veiculo(String placa, Integer capacidade) {
+    public Veiculo(String placa, int capacidade, Assento[] assentos) {
         this.placa = placa;
         this.capacidade = capacidade;
         this.assentos = new Assento[capacidade];
@@ -22,11 +22,11 @@ public class Veiculo {
         this.placa = placa;
     }
 
-    public Integer getCapacidade() {
+    public int getCapacidade() {
         return capacidade;
     }
 
-    public void setCapacidade(Integer capacidade) {
+    public void setCapacidade(int capacidade) {
         this.capacidade = capacidade;
     }
 

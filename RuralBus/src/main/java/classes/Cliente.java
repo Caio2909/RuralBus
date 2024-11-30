@@ -1,25 +1,10 @@
 package classes;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "cliente")
 public class Cliente {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "nome", nullable = false)
     private String nome;
-
-    @Column(name = "email", nullable = false, unique = true)
     private String email;
-
-    @Column(name = "senha", nullable = false)
     private String senha;
-
-    @Column(name = "cpf", nullable = false, unique = true)
     private String CPF;
 
     public Cliente() {

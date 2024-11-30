@@ -1,7 +1,7 @@
 package classes;
 
 public class Passagem {
-    String ID;
+    String id;
     Cliente cliente;
     Viagem viagem;
     Assento assento;
@@ -18,12 +18,12 @@ public class Passagem {
         this.assento.ocupar();
     }
 
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Cliente getCliente() {
