@@ -27,8 +27,7 @@
     max-width: 600px; /* Limita a largura para não ocupar toda a tela */
 }
 
-.checkout-form h2,
-.checkout-form h3 {
+.checkout-form h2 {
     color: #00bfff; /* Azul pastel */
     margin-bottom: 1rem;
 }
@@ -39,9 +38,7 @@
     color: #ccc;
 }
 
-.checkout-form input[type="text"],
-.checkout-form input[type="email"],
-.checkout-form input[type="tel"] {
+.checkout-form select {
     width: 100%;
     padding: 0.5rem;
     margin-bottom: 1rem;
@@ -51,7 +48,7 @@
     color: #fff;
 }
 
-.checkout-form input:focus {
+.checkout-form select:focus {
     outline: 2px solid #00bfff;
 }
 
@@ -87,36 +84,8 @@
     margin-bottom: 1rem;
 }
 
-.checkout-details p {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Estilo para seleção de assentos */
-.seat-selection {
-    display: flex;
-    gap: 1rem;
-    margin: 1rem 0;
-}
-
-.seat-selection div {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.seat-selection input[type="radio"] {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #00bfff;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-}
-
-.seat-selection input[type="radio"]:checked {
-    background-color: #00bfff;
+.checkout-details img {
+    border-radius: 10px;
 }
 
 /* Responsividade */
@@ -139,105 +108,3 @@
         max-width: 100%;
     }
 }
-/* Ensure the parent container of the form has position: relative */
-.checkout-form-container {
-    position: relative;
-}
-
-/* Adjust the back arrow CSS */
-.back-arrow {
-    display: inline-block;
-    color: 
-#00bfff;
-    text-decoration: none;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
- 
-    padding: 0.5rem;
-    transition: all 0.3s ease;
-    position: relative; /* Change to absolute positioning */
-    top: -40px; /* Adjust the arrow to be above the form */
-    left: 33%;
-    transform: translateX(-50%); /* Center the arrow horizontally */
-}
-
-.back-arrow:hover {
-    color: #fff;
- 
-}
-
-.back-arrow:before {	
-    content: '\2190'; /* Unicode for up arrow */
-    margin-right: 8px;
-    font-size: 1.5rem;
-}
-
-/* Estilo para a seleção de assentos */
-.seat-selection {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 1rem 0;
-    justify-content: center;
-}
-
-.row {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.seat {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    text-align: center;
-}
-
-.seat input[type="radio"] {
-    appearance: none;
-    width: 30px;
-    height: 30px;
-    border: 2px solid #00bfff;
-    border-radius: 50%;
-    cursor: pointer;
-    background-color: #383838;
-    transition: background-color 0.3s;
-}
-
-.seat input[type="radio"]:checked {
-    background-color: #00bfff;
-}
-
-.seat label {
-    color: #fff;
-    font-size: 1rem;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* Hover sobre o botão de assento */
-.seat input[type="radio"]:hover {
-    background-color: #444;
-}
-
-/* Adicionando responsividade para telas menores */
-@media (max-width: 768px) {
-    .seat-selection {
-        gap: 0.5rem;
-    }
-    
-    .row {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        justify-content: flex-start;
-    }
-}
-
-
-
-
-
-

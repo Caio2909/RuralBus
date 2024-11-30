@@ -19,12 +19,12 @@
     <section class="hero">
         <div class="container">
             <h2>Bem-vindo de volta!</h2>
-            <form class="search-form" action="processaLogin.do" method="post">
+            <form class="search-form" action="login" method="post">
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
 
                 <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                <input type="password" id="password" name="senha" placeholder="Digite sua senha" required>
 
                 <button type="submit">Login</button>
 
