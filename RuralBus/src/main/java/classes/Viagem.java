@@ -3,6 +3,7 @@ package classes;
 import java.util.Date;
 
 public class Viagem {
+	int id;
     String partida;
     String destino;
     Date data_partida;
@@ -22,6 +23,13 @@ public class Viagem {
         this.preco = preco;
     }
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
     public String getPartida() {
         return partida;
     }

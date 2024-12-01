@@ -29,6 +29,7 @@ public class ViagemDAO {
             ps.setDate(3, new java.sql.Date(viagem.getData_partida().getTime()));
             ps.setDate(4, new java.sql.Date(viagem.getData_chegada().getTime()));
             ps.setInt(5, viagem.getVeiculo().getId());
+            ps.setDouble(6, viagem.getPreco());
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             System.err.println("Erro ao adicionar viagem: " + ex.getMessage());
@@ -51,7 +52,7 @@ public class ViagemDAO {
     
     
     //buscar viagem por ID
-    public Viagem getViagemById(long viagemId) {
+    public Viagem getViagemById(int viagemId) {
         String SQL = "SELECT v.partida, v.destino, v.data_partida, v.data_chegada, " +
                      "p.id as passagem_id, ve.modelo, ve.placa " +
                      "FROM viagem v " +
@@ -76,6 +77,7 @@ public class ViagemDAO {
                     viagem.setDestino(rs.getString("destino"));
                     viagem.setData_partida(rs.getDate("data_partida"));
                     viagem.setData_chegada(rs.getDate("data_chegada"));
+                    viagem.setId(viagemId);
                     viagem.setVeiculo(veiculo);    
                     return viagem;
                 }
@@ -87,9 +89,9 @@ public class ViagemDAO {
     }
 
     //Atualizar viagem
-    public boolean updateViagem(long viagemId, Viagem viagem) {
+    public boolean updateViagem(int viagemId, Viagem viagem) {
         String SQL = "UPDATE viagem SET partida = ?, destino = ?, data_partida = ?, data_chegada = ?, " +
-                     "passagem_id = ? WHERE id = ?";
+                     "preco = ? WHERE id = ?";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL)) {
     
@@ -97,8 +99,8 @@ public class ViagemDAO {
             ps.setString(2, viagem.getDestino());
             ps.setDate(3, new java.sql.Date(viagem.getData_partida().getTime()));
             ps.setDate(4, new java.sql.Date(viagem.getData_chegada().getTime()));
+            ps.setFloat(5, viagem.getPreco());
             ps.setLong(6, viagemId);
-    
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException ex) {
