@@ -1,9 +1,14 @@
 package classes;
 
 public class Veiculo {
+	int id;
     String placa;
     int capacidade;
     Assento[] assentos;
+
+    public Veiculo(){
+
+    }
 
     public Veiculo(String placa, int capacidade, Assento[] assentos) {
         this.placa = placa;
@@ -17,7 +22,14 @@ public class Veiculo {
     public String getPlaca() {
         return placa;
     }
+    
+    public int getId() {
+    	  return id;
+    }
 
+	public void setId(int id) {
+		this.id = id;
+	}
     public void setPlaca(String placa) {
         this.placa = placa;
     }

@@ -24,13 +24,7 @@ public class processaLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-
-        if (email == null || email.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
-            request.setAttribute("errorMessage", "Email e senha são obrigatórios.");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-            return;
-        }
-
+   
         Cliente cliente = clienteDAO.getClienteByEmail(email);
 
         if (cliente != null && cliente.getSenha().equals(senha)) {

@@ -6,6 +6,10 @@ public class Passagem {
     Viagem viagem;
     Assento assento;
 
+    public Passagem() {
+        
+    }
+
     public Passagem(Cliente cliente, Viagem viagem, Assento assento) {
         this.cliente = cliente;
         this.viagem = viagem;

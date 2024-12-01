@@ -10,7 +10,7 @@
     <title>Compra de Passagens de Ônibus</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="a">
     <!-- Cabeçalho -->
     <header>
         <div class="container">
@@ -29,7 +29,7 @@
     			 <c:choose>
                     <c:when test="${not empty usuarioLogado}">
                         <p>Bem-vindo, ${usuarioLogado.nome.split(' ')[0]}!</p>
-                        <form action="logout.jsp" method="post">
+                        <form action="processaLogout.do" method="post">
                             <button type="submit">Logout</button>
                         </form>
                     </c:when>

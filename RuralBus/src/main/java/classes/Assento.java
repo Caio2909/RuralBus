@@ -4,6 +4,10 @@ public class Assento {
     Integer numero;
     boolean ocupado;
 
+    public Assento() {
+        
+    }
+
     public Assento(Integer numero, Boolean ocupado) {
         this.numero = numero;
         this.ocupado = ocupado;

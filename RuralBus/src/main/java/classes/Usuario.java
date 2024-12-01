@@ -2,19 +2,10 @@ package classes;
 
 
 public class Usuario {
-
     private Long id;
-
-
-    private String nome;
-
- 
+    private String nome; 
     private String email;
-
-
-    private String senha;
-
- 
+    private String senha; 
     private String CPF;
 
     public Usuario() {
@@ -24,7 +15,7 @@ public class Usuario {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.CPF = CPF;
+        this.setCPF(CPF);
     }
 
     public String getNome() {
@@ -58,5 +49,13 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+	public String getCPF() {
+		return CPF;
+	}
+
+	public void setCPF(String cPF) {
+		CPF = cPF;
+	}
 
 }

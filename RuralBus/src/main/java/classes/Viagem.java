@@ -7,16 +7,19 @@ public class Viagem {
     String destino;
     Date data_partida;
     Date data_chegada;
-    Passagem passagem;
     Veiculo veiculo;
+    float preco;
+    public Viagem(){
+        
+    }
 
-    public Viagem(String partida, String destino, Date data_partida, Date data_chegada, Passagem passagem, Veiculo veiculo) {
+    public Viagem(String partida, String destino, Date data_partida, Date data_chegada, Veiculo veiculo, float preco) {
         this.partida = partida;
         this.destino = destino;
         this.data_partida = data_partida;
         this.data_chegada = data_chegada;
-        this.passagem = passagem;
         this.veiculo = veiculo;
+        this.preco = preco;
     }
 
     public String getPartida() {
@@ -46,18 +49,19 @@ public class Viagem {
     public Date getData_chegada() {
         return data_chegada;
     }
+    
+	public float getPreco() {
+		return preco;
+	}
+	
+	public void setPreco(float preco) {
+		this.preco = preco;
+	}
 
     public void setData_chegada(Date data_chegada) {
         this.data_chegada = data_chegada;
     }
 
-    public Passagem getPassagem() {
-        return passagem;
-    }
-
-    public void setPassagem(Passagem passagem) {
-        this.passagem = passagem;
-    }
 
     public Veiculo getVeiculo() {
         return veiculo;

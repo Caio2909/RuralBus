@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -20,6 +21,11 @@
         <div class="container">
             <h2>Bem-vindo de volta!</h2>
             <form class="search-form" action="processaLogin.do" method="post">
+            	<c:if test="${not empty errorMessage}">
+                	<div class="error-message" style="color: red; margin-bottom: 1rem;">
+                    	${errorMessage}
+                	</div>
+           	 	</c:if>
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
 
