@@ -76,7 +76,9 @@ public class ViagemDAO {
                     viagem.setPartida(rs.getString("partida"));
                     viagem.setDestino(rs.getString("destino"));
                     viagem.setData_partida(rs.getDate("data_partida"));
+                    
                     viagem.setData_chegada(rs.getDate("data_chegada"));
+                    
                     viagem.setId(viagemId);
                     viagem.setVeiculo(veiculo);    
                     return viagem;

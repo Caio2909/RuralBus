@@ -5,7 +5,7 @@ public class Passagem {
     Cliente cliente;
     Viagem viagem;
     Assento assento;
-
+    float preco;
     public Passagem() {
         
     }
@@ -22,6 +22,13 @@ public class Passagem {
         this.assento.ocupar();
     }
 
+	public float getPreco() {
+		return preco;
+	}
+	
+	public void setPreco(float preco) {
+		this.preco = preco;
+	}
     public String getId() {
         return id;
     }

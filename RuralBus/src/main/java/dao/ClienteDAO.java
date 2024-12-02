@@ -54,7 +54,7 @@ public class ClienteDAO {
 	    }
 
 	    // Método para remover um cliente pelo ID
-	    public boolean removeCliente(long id) {
+	    public boolean removeCliente(int id) {
 	        String SQL = "DELETE FROM cliente WHERE id = ?";
 	        
 	        try (Connection conn = DatabaseConnection.getConnection();
@@ -71,7 +71,7 @@ public class ClienteDAO {
 	    }
 
 	    // Método para buscar um cliente pelo ID
-	    public Cliente getClienteById(long id) {
+	    public Cliente getClienteById(int id) {
 	        Cliente cliente = null;
 	        String SQL = "SELECT * FROM cliente WHERE id = ?";
 	        
@@ -115,7 +115,7 @@ public class ClienteDAO {
 	    // Método auxiliar para extrair Cliente de um ResultSet
 	    private Cliente extractClienteFromResultSet(ResultSet rs) throws SQLException {
 	        Cliente cli = new Cliente();
-	        cli.setId(rs.getLong("id"));
+	        cli.setId(rs.getInt("id"));
 	        cli.setNome(rs.getString("nome"));
 	        cli.setEmail(rs.getString("email"));
 	        cli.setSenha(rs.getString("senha"));

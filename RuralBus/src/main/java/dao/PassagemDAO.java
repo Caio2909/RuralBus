@@ -1,58 +1,56 @@
 package dao;
-
 import classes.Passagem;
+import classes.Veiculo;
+import classes.Viagem;
+import util.DatabaseConnection;
 import classes.Cliente;
 import classes.Assento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet; 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.sql.DataSource;
+
 public class PassagemDAO {
-    private DataSource dataSource;
-    public PassagemDAO(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-    // Adicionar passagem
     public boolean addPassagem(Passagem passagem) {
-        String SQL = "INSERT INTO passagem (id, cliente_id, assento_numero) VALUES (?, ?, ?)";
-        try (Connection conn = dataSource.getConnection();
+        String SQL = "INSERT INTO passagem (id, cliente_id, assento_id) VALUES (?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL)) {
 
             ps.setString(1, passagem.getId());
             ps.setLong(2, passagem.getCliente().getId());
-            ps.setInt(3, passagem.getAssento().getNumero());
+            ps.setInt(3, passagem.getAssento().getId()); 
 
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0; // Retorna true se a inserção foi bem-sucedida
+            return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             System.err.println("Erro ao adicionar passagem: " + ex.getMessage());
             return false;
         }
     }
 
-    // Buscar passagem por ID
     public Passagem getPassagemById(String passagemId) {
-        String SQL = "SELECT p.id, p.cliente_id, p.assento_numero, c.nome, a.numero " +
-                     "FROM passagem p " +
-                     "JOIN cliente c ON p.cliente_id = c.id " +
-                     "JOIN assento a ON p.assento_numero = a.numero " +
-                     "WHERE p.id = ?";
-        try (Connection conn = dataSource.getConnection();
+        String SQL = """
+            SELECT p.id, p.cliente_id, c.nome, a.id AS assento_id, a.numero, a.ocupado
+            FROM passagem p
+            JOIN cliente c ON p.cliente_id = c.id
+            JOIN assento a ON p.assento_id = a.id
+            WHERE p.id = ?
+        """;
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL)) {
 
             ps.setString(1, passagemId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    // Recuperando os dados da passagem
                     Cliente cliente = new Cliente();
-                    cliente.setId(rs.getLong("cliente_id"));
+                    cliente.setId(rs.getInt("cliente_id"));
                     cliente.setNome(rs.getString("nome"));
 
                     Assento assento = new Assento();
-                    assento.setNumero(rs.getInt("assento_numero"));
+                    assento.setId(rs.getInt("assento_id"));
+                    assento.setNumero(rs.getInt("numero"));
+                    if (rs.getBoolean("ocupado")) assento.ocupar();
 
                     Passagem passagem = new Passagem();
                     passagem.setId(rs.getString("id"));
@@ -65,13 +63,13 @@ public class PassagemDAO {
         } catch (SQLException ex) {
             System.err.println("Erro ao buscar passagem: " + ex.getMessage());
         }
-        return null; // Retorna null se nenhuma passagem for encontrada
+        return null;
     }
 
-    // Remover passagem
     public void removePassagem(String passagemId) {
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("DELETE FROM passagem WHERE id = ?")) {
+        String SQL = "DELETE FROM passagem WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL)) {
 
             ps.setString(1, passagemId);
             ps.executeUpdate();
@@ -80,40 +78,34 @@ public class PassagemDAO {
         }
     }
 
-    // Listar passagens
     public List<Passagem> getAllPassagens() {
-        String SQL = "SELECT p.id, p.cliente_id, c.nome, a.numero as assento_numero, a.ocupado " +
-                     "FROM passagem p " +
-                     "JOIN cliente c ON p.cliente_id = c.id " +
-                     "JOIN assento a ON p.assento_numero = a.numero";
+        String SQL = """
+            SELECT p.id, c.id AS cliente_id, c.nome, a.id AS assento_id, a.numero, a.ocupado
+            FROM passagem p
+            JOIN cliente c ON p.cliente_id = c.id
+            JOIN assento a ON p.assento_id = a.id
+        """;
         List<Passagem> passagens = new ArrayList<>();
 
-        try (Connection conn = dataSource.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                // Criar cliente
                 Cliente cliente = new Cliente();
-                cliente.setId(rs.getLong("cliente_id"));
+                cliente.setId(rs.getInt("cliente_id"));
                 cliente.setNome(rs.getString("nome"));
 
-                // Criar assento
                 Assento assento = new Assento();
-                assento.setNumero(rs.getInt("assento_numero"));
-                if (rs.getBoolean("ocupado")) {
-                    assento.ocupar();
-                } else {
-                    assento.desocupar();
-                }
+                assento.setId(rs.getInt("assento_id"));
+                assento.setNumero(rs.getInt("numero"));
+                if (rs.getBoolean("ocupado")) assento.ocupar();
 
-                // Criar passagem
                 Passagem passagem = new Passagem();
                 passagem.setId(rs.getString("id"));
                 passagem.setCliente(cliente);
                 passagem.setAssento(assento);
 
-                // Adicionar à lista
                 passagens.add(passagem);
             }
         } catch (SQLException ex) {
@@ -122,4 +114,52 @@ public class PassagemDAO {
 
         return passagens;
     }
+    
+    public List<Passagem> getPassagensByClienteId(int clienteId) {
+        List<Passagem> passagens = new ArrayList<>();
+        String sql = """
+            SELECT p.id, v.partida, v.destino, v.data_partida, v.data_chegada, v.preco, a.numero, ve.id AS veiculo_id, ve.placa, ve.capacidade
+            FROM passagem p
+            JOIN viagem v ON p.viagem_id = v.id
+            JOIN assento a ON p.assento_id = a.id
+            JOIN veiculo ve ON v.veiculo_id = ve.id
+            WHERE p.cliente_id = ?
+        """;
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, clienteId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Passagem passagem = new Passagem();
+                Viagem viagem = new Viagem();
+                Veiculo veiculo = new Veiculo();
+                Assento assento = new Assento();
+
+                viagem.setPartida(rs.getString("partida"));
+                viagem.setDestino(rs.getString("destino"));
+                viagem.setData_partida(rs.getTimestamp("data_partida"));
+                viagem.setData_chegada(rs.getTimestamp("data_chegada"));
+                viagem.setPreco(rs.getFloat("preco"));
+
+                assento.setNumero(rs.getInt("numero"));
+
+                veiculo.setId(rs.getInt("veiculo_id"));
+                veiculo.setPlaca(rs.getString("placa"));
+                veiculo.setCapacidade(rs.getInt("capacidade"));
+
+                viagem.setVeiculo(veiculo);
+                passagem.setViagem(viagem);
+                passagem.setAssento(assento);
+                passagem.setPreco(rs.getFloat("preco"));
+
+                passagens.add(passagem);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return passagens;
+    }
+
+
 }

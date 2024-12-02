@@ -18,13 +18,17 @@
                 <h1><a href="#">PassagensFácil</a></h1>
             </div>
             <nav>
-                <ul>
-                    <li><a href="#">Início</a></li>
-                    <li><a href="#">Sobre Nós</a></li>
-                    <li><a href="#">Ajuda</a></li>
-                    <li><a href="#">Contato</a></li>
-                </ul>
-            </nav>
+			    <ul>
+			        <li><a href="#">Início</a></li>
+			        <li><a href="#">Sobre Nós</a></li>
+			        <li><a href="#">Ajuda</a></li>
+			        <li><a href="#">Contato</a></li>
+			        <c:if test="${not empty usuarioLogado}">
+			            <li><a href="minhasPassagens">Minhas Passagens</a></li>
+			        </c:if>
+			    </ul>
+			</nav>
+
             <div class="auth">
     			 <c:choose>
                     <c:when test="${not empty usuarioLogado}">

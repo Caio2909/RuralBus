@@ -1,6 +1,7 @@
 package classes;
 
 public class Assento {
+	int id;
     Integer numero;
     boolean ocupado;
 
@@ -8,6 +9,12 @@ public class Assento {
         
     }
 
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getId(){
+    	return id;
+    }
     public Assento(Integer numero, Boolean ocupado) {
         this.numero = numero;
         this.ocupado = ocupado;
