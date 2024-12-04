@@ -30,8 +30,6 @@ public class processaLogin extends HttpServlet {
         if (cliente != null && cliente.getSenha().equals(senha)) {
             HttpSession session = request.getSession();
             session.setAttribute("usuarioLogado", cliente);
-            session.setMaxInactiveInterval(30 * 60);
-
             response.sendRedirect("Inicio.jsp");
         } else {
             request.setAttribute("errorMessage", "Email ou senha inválidos.");

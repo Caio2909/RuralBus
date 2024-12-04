@@ -2,6 +2,7 @@ package classes;
 
 public class Assento {
 	int id;
+	int veiculoId;
     Integer numero;
     boolean ocupado;
 
@@ -28,6 +29,14 @@ public class Assento {
         this.numero = numero;
     }
 
+	public int getVeiculoId(){
+    	return veiculoId;
+    }
+	
+	public void setVeiculoId(int veiculoId) {
+		this.veiculoId = veiculoId;
+	}
+    
     public boolean isOcupado() {
         return ocupado;
     }

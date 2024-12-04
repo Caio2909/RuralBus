@@ -21,6 +21,11 @@
         <div class="container">
             <h2>Bem-vindo de volta!</h2>
             <form class="search-form" action="processaLogin.do" method="post">
+            	<c:if test="${not empty successMessage}">
+                	<div class="sucess-message" style="color: green; margin-bottom: 1rem;">
+                    	${successMessage}
+                	</div>
+           	 	</c:if>
             	<c:if test="${not empty errorMessage}">
                 	<div class="error-message" style="color: red; margin-bottom: 1rem;">
                     	${errorMessage}

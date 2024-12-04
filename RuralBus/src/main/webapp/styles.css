@@ -140,22 +140,9 @@ header .auth select {
     margin-bottom: 2rem;
 }
 
-.results .filters {
-    float: left;
-    width: 25%;
-    padding: 1rem;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-}
-
-.results .filters label {
-    display: block;
-    margin-bottom: 1rem;
-}
 
 .results .list {
-    float: right;
-    width: 70%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;

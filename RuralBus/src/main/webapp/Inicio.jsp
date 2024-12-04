@@ -44,7 +44,7 @@
 			</div>
 			<script>
     		document.getElementById('loginButton').addEventListener('click', function () {
-        	window.location.href = 'login.jsp'; // Redireciona para a página de login
+        	window.location.href = 'login.jsp';
     			});
 				</script>
             </div>
@@ -53,32 +53,25 @@
 <section class="hero">
     <div class="container">
         <h2>Encontre a sua passagem de ônibus!</h2>
-        <form class="search-form">
-            <!-- Campo de origem -->
-            <label for="origin">De:</label>
-            <div style="position: relative;">
-                <input type="text" id="origin" name="origin" placeholder="Cidade de Origem" required>
-                <ul id="originDropdown" class="dropdown-list"></ul>
-            </div>
+	        <form class="search-form" action="buscaViagens.do" method="get">
+	    		<label for="origin">De:</label>
+	    		<div style="position: relative;">
+                	<input type="text" id="origin" name="origin" placeholder="Cidade de Origem" value="${param.origin}" required>
+                	<ul id="originDropdown" class="dropdown-list"></ul>
+            	</div>
+            	
+				<label for="destination">Para:</label>
+	    		<div style="position: relative;">
+                	<input type="text" id="destination" name="destination" placeholder="Cidade de Destino" value="${param.destination}" required>
+                	<ul id="destinationDropdown" class="dropdown-list"></ul>
+           		 </div>
+	
+	    		<label for="departure-date">Data de Ida:</label>
+	    		<input type="date" id="departure-date" name="departureDate" value="${param.departureDate}" required>
+	
+	    <button type="submit">Buscar Passagens</button>
+			</form>	
 
-            <!-- Campo de destino -->
-            <label for="destination">Para:</label>
-            <div style="position: relative;">
-                <input type="text" id="destination" name="destination" placeholder="Cidade de Destino" required>
-                <ul id="destinationDropdown" class="dropdown-list"></ul>
-            </div>
-
-            <!-- Campo de data de ida -->
-            <label for="departure-date">Data de Ida:</label>
-            <input type="date" id="departure-date" name="departure-date" required>
-
-            <!-- Campo de data de volta -->
-            <label for="return-date">Data de Volta (Opcional):</label>
-            <input type="date" id="return-date" name="return-date">
-
-            <!-- Botão de busca -->
-            <button type="submit">Buscar Passagens</button>
-        </form>
     </div>
 </section>
 
@@ -88,30 +81,23 @@
     <section class="results">
         <div class="container">
             <h3>Resultados da Pesquisa</h3>
-            <div class="filters">
-                <h4>Filtros</h4>
-                <label>Preço: <input type="range" min="0" max="500"></label>
-                <label><input type="checkbox"> Empresa A</label>
-                <label><input type="checkbox"> Empresa B</label>
-                <label><input type="checkbox"> Leito</label>
-                <label><input type="checkbox"> Executivo</label>
-            </div>
             <div class="list">
-    		<div class="result-item">
-    			<h4>Empresa A</h4>
-    			<p>08:00 - 12:00</p>
-    			<p>4h</p>
-    			<p>R$ 120,00</p>
-    			<form action="checkout.jsp" method="get">
-        <!-- Enviando informações da passagem -->
-        		<input type="hidden" name="empresa" value="Empresa A">
-        		<input type="hidden" name="horario" value="08:00 - 12:00">
-        		<input type="hidden" name="preco" value="120">
-        		<button type="submit">Selecionar</button>
-    </form>
-</div>
-
-    </div>
+    			<c:forEach var="viagem" items="${viagens}">
+        			<div class="result-item">
+            		<h4>${viagem.partida} para ${viagem.destino}</h4>
+		            <p>Data da Partida: ${viagem.dataPartidaFormatada}</p>
+		            <p>Data da Chegada: ${viagem.dataChegadaFormatada} </p>
+		            <p>Preço: R$ ${viagem.preco}</p>
+		            <form action="processaCheckout" method="get">
+               		<input type="hidden" name="idViagem" value="${viagem.id}">
+                <button type="submit">Selecionar</button>					
+					</form>
+        			</div>    			
+    			</c:forEach>    			
+				</div>
+				<c:if test="${empty viagens}">
+						<p style="color: #ff0000; text-align:center;" >Nenhuma Viagem Encontrada.</p>
+				</c:if>
 </div>
         
     </section>

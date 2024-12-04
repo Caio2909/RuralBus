@@ -61,6 +61,7 @@ public class processaRegistro extends HttpServlet {
 			return;
 		}
 	    clienteDAO.addCliente(cliente);
+	    request.getSession().setAttribute("successMessage", "Cadastro realizado com sucesso! Faça login para continuar");
 	    response.sendRedirect("login.jsp");	   	   
 	}
 

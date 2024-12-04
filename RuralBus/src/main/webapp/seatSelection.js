@@ -1,4 +1,4 @@
-// Assentos ocupados (simulação)
+	// Assentos ocupados (simulação)
 const occupiedSeats = [];
 
 // Preencher o dropdown com assentos disponíveis

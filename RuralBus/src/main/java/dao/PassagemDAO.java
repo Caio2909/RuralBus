@@ -140,7 +140,7 @@ public class PassagemDAO {
                 viagem.setDestino(rs.getString("destino"));
                 viagem.setData_partida(rs.getTimestamp("data_partida"));
                 viagem.setData_chegada(rs.getTimestamp("data_chegada"));
-                viagem.setPreco(rs.getFloat("preco"));
+                viagem.setPreco(rs.getBigDecimal("preco"));
 
                 assento.setNumero(rs.getInt("numero"));
 
