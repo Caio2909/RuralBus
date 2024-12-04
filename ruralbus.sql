@@ -26,8 +26,12 @@ CREATE TABLE `assento` (
   `id` int NOT NULL AUTO_INCREMENT,
   `numero` int NOT NULL,
   `ocupado` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `viagem_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_assento_numero` (`numero`),
+  KEY `assento_ibfk_1` (`viagem_id`),
+  CONSTRAINT `assento_ibfk_1` FOREIGN KEY (`viagem_id`) REFERENCES `viagem` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=485 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +57,7 @@ CREATE TABLE `cliente` (
   `senha` varchar(50) DEFAULT NULL,
   `CPF` varchar(14) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +66,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'Pedro','ppinheiro@gmail.com','12345','123.456.789-01'),(2,'Kauã','ksantos@gmail.com','54321','123.456.789-02'),(3,'Caio','crodrigues@gmail.com','0000','123.456.789-03'),(4,'Caio Rodrigues Vieira','caiocleo1@gmail.com','12345','161.133.707-04'),(6,'teste da Silva','teste@teste.com','caio123','123.131.312-31'),(7,'caio','testando@test','caio','123.123.321-31');
+INSERT INTO `cliente` VALUES (1,'Pedro','ppinheiro@gmail.com','12345','123.456.789-01'),(2,'Kauã','ksantos@gmail.com','54321','123.456.789-02'),(3,'Caio','crodrigues@gmail.com','0000','123.456.789-03'),(4,'Caio Rodrigues Vieira','caiocleo1@gmail.com','12345','161.133.707-04'),(6,'teste da Silva','teste@teste.com','caio123','123.131.312-31'),(7,'caio','testando@test','caio','123.123.321-31'),(9,'mensage registro','teste@registro','0000','123.132.331-32');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,7 +113,7 @@ CREATE TABLE `veiculo` (
   `placa` varchar(10) NOT NULL,
   `capacidade` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,7 +143,7 @@ CREATE TABLE `viagem` (
   PRIMARY KEY (`id`),
   KEY `veiculo_id` (`veiculo_id`),
   CONSTRAINT `viagem_ibfk_1` FOREIGN KEY (`veiculo_id`) REFERENCES `veiculo` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-01 19:01:03
+-- Dump completed on 2024-12-04 10:43:48
