@@ -2,79 +2,101 @@ package dao;
 
 import classes.Veiculo;
 import classes.Assento;
+import classes.Viagem;
 import util.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 
 public class VeiculoDAO {
-	
-    public ArrayList<Veiculo> readAll() {
-        ArrayList<Veiculo> lista = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        try {
-            String SQL = "SELECT * FROM veiculo";
-            conn = DatabaseConnection.getConnection();
-            ps = conn.prepareStatement(SQL);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                String placa = rs.getString("placa");
-                int capacidade = rs.getInt("capacidade");
-
-                Assento[] assentos = new Assento[capacidade];
-                for (int i = 0; i < capacidade; i++) {
-                    assentos[i] = new Assento(i + 1, false);
-                }
-
-                Veiculo veiculo = new Veiculo(placa, capacidade, assentos);
-                lista.add(veiculo);
-            }
-        } catch (SQLException ex) {
-            System.err.println("Erro ao recuperar veículos: " + ex.getMessage());
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                System.err.println("Erro ao fechar recursos: " + e.getMessage());
-            }
-        }
-        return lista;
-    }
-
-    public Veiculo getVeiculoByPlaca(String placa) {
-        Veiculo veiculo = null;
+ 
+    private Assento[] getAssentosParaVeiculo(int veiculoId, int capacidade) {
+        Assento[] assentos = new Assento[capacidade];
+        
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM veiculo WHERE placa = ?")) {
-            ps.setString(1, placa);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                int capacidade = rs.getInt("capacidade");
-
-                Assento[] assentos = new Assento[capacidade];
-                for (int i = 0; i < capacidade; i++) {
-                    assentos[i] = new Assento(i + 1, false);
+             PreparedStatement ps = conn.prepareStatement(
+                 "SELECT id, numero FROM assento WHERE veiculo_id = ?")) {
+            
+            ps.setInt(1, veiculoId);
+            try (ResultSet rs = ps.executeQuery()) {
+                // Populate existing seats
+                while (rs.next()) {
+                    int numero = rs.getInt("numero");
+                    int assentoId = rs.getInt("id");
+                    
+                    Assento assento = new Assento();
+                    assento.setId(assentoId);
+                    assento.setNumero(numero);
+                    
+                    // Adjust index to be 0-based
+                    assentos[numero - 1] = assento;
                 }
-
-                veiculo = new Veiculo(placa, capacidade, assentos);
+            }
+            
+            // Create any missing seats
+            for (int i = 0; i < capacidade; i++) {
+                if (assentos[i] == null) {
+                    Assento novoAssento = new Assento();
+                    novoAssento.setNumero(i + 1);
+                    
+                    // Persist the new seat in the database
+                    try (PreparedStatement insertPs = conn.prepareStatement(
+                        "INSERT INTO assento (numero, viagem_id, veiculo_id) VALUES (?, NULL, ?)", 
+                        PreparedStatement.RETURN_GENERATED_KEYS)) {
+                        
+                        insertPs.setInt(1, i + 1);
+                        insertPs.setInt(2, veiculoId);
+                        
+                        insertPs.executeUpdate();
+                        
+                        try (ResultSet generatedKeys = insertPs.getGeneratedKeys()) {
+                            if (generatedKeys.next()) {
+                                novoAssento.setId(generatedKeys.getInt(1));
+                            }
+                        }
+                    }
+                    
+                    assentos[i] = novoAssento;
+                }
             }
         } catch (SQLException ex) {
-            System.err.println("Erro ao buscar veículo: " + ex.getMessage());
+            System.err.println("Erro ao recuperar assentos do veículo: " + ex.getMessage());
         }
-        return veiculo;
+        
+        return assentos;
     }
 
     public boolean addVeiculo(Veiculo veiculo) {
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO veiculo (placa, capacidade) VALUES (?, ?)")) {
+             PreparedStatement ps = conn.prepareStatement(
+                 "INSERT INTO veiculo (placa, capacidade) VALUES (?, ?)", 
+                 PreparedStatement.RETURN_GENERATED_KEYS)) {
+            
             ps.setString(1, veiculo.getPlaca());
             ps.setInt(2, veiculo.getCapacidade());
+            
             int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
+            
+            // Create seats for the new vehicle
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int veiculoId = generatedKeys.getInt(1);
+                        
+                        try (PreparedStatement seatPs = conn.prepareStatement(
+                            "INSERT INTO assento (numero, veiculo_id) VALUES (?, ?)")) {
+                            
+                            for (int i = 1; i <= veiculo.getCapacidade(); i++) {
+                                seatPs.setInt(1, i);
+                                seatPs.setInt(2, veiculoId);
+                                seatPs.addBatch();
+                            }
+                            
+                            seatPs.executeBatch();
+                        }
+                    }
+                }
+                return true;
+            }
         } catch (SQLException ex) {
             System.err.println("Erro ao inserir veículo: " + ex.getMessage());
         }

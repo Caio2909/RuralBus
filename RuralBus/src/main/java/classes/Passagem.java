@@ -10,16 +10,11 @@ public class Passagem {
         
     }
 
-    public Passagem(Cliente cliente, Viagem viagem, Assento assento) {
+    public Passagem(Cliente cliente, Viagem viagem, Assento assento, float preco) {
         this.cliente = cliente;
         this.viagem = viagem;
         this.assento = assento;
-
-        /*
-         * Inicializa o Assento da passagem
-         */
-
-        this.assento.ocupar();
+        this.preco = preco;
     }
 
 	public float getPreco() {

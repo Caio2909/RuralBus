@@ -1,56 +1,49 @@
 package classes;
 
 public class Assento {
-	int id;
-	int veiculoId;
-    Integer numero;
-    boolean ocupado;
+    private int id;
+    private int numero;
+    private Viagem viagem;
+    private Veiculo veiculo;
 
-    public Assento() {
-        
-    }
+    // Constructors
+    public Assento() {}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getId(){
-    	return id;
-    }
-    public Assento(Integer numero, Boolean ocupado) {
+    public Assento(int numero, Viagem viagem) {
         this.numero = numero;
-        this.ocupado = ocupado;
+        this.viagem = viagem;
     }
 
-    public Integer getNumero() {
+    // Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(Integer numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
-	public int getVeiculoId(){
-    	return veiculoId;
-    }
-	
-	public void setVeiculoId(int veiculoId) {
-		this.veiculoId = veiculoId;
-	}
-    
-    public boolean isOcupado() {
-        return ocupado;
+    public Viagem getViagem() {
+        return viagem;
     }
 
-    public void setOcupado(Boolean ocupado) {
-        this.ocupado = ocupado;
+    public void setViagem(Viagem viagem) {
+        this.viagem = viagem;
     }
 
-    public void ocupar() {
-        this.ocupado = true;
+    public Veiculo getVeiculo() {
+        return veiculo;
     }
 
-    public void desocupar() {
-        this.ocupado = false;
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
-    
 }

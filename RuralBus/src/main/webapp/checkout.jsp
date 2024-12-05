@@ -27,7 +27,7 @@
                 <div class="checkout-form">
                 
                     <h2>Finalizar Compra</h2>
-                    <form action="confirmarCompra.do" method="post">
+                    <form action="confirmarCompra.do" method="get">
                         <h3>Preencha seus dados:</h3>
                         <label for="nome">Nome Completo:</label>
                         <input type="text" id="nome" name="nome" placeholder="Digite seu nome" value="${usuarioLogado.nome}" required readonly>
@@ -38,7 +38,7 @@
                         <label for="email">E-mail:</label>
                         <input type="email" id="email" name="email"  placeholder="Digite seu e-mail" value="${usuarioLogado.email}" required readonly>
                         	<h3>Escolha seu assento:</h3>
-						<input type="hidden" name="idViagem" value="${viagem}">
+						<input type="hidden" name="idViagem" value="${viagem.id}">
 							       <div class="checkout-form">
 							            <h2>Escolha seu assento</h2> 
 							                  <label for="seatNumber">Número do assento:</label>

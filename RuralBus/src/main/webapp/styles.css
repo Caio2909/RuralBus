@@ -260,5 +260,61 @@ footer .social-media a:hover {
         font-size: 0.8rem; /* Reduz o tamanho do texto */
     }
 }
+section.passagens {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+section.passagens table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+section.passagens thead {
+    background-color: #007bff;
+    color: white;
+}
+
+section.passagens th, 
+section.passagens td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+section.passagens th {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+section.passagens tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+section.passagens tbody tr:hover {
+    background-color: #e6f7ff;
+    cursor: pointer;
+}
+
+section.passagens td {
+    font-size: 14px;
+    color: #333;
+}
+
+section.passagens p {
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+}
+
+section.passagens tbody tr td:last-child {
+    font-weight: bold;
+    color: #007bff;
+}
 
 

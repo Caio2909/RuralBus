@@ -12,10 +12,11 @@
 <body>
     <header>
         <h1>Minhas Passagens</h1>
-        <a href="Inicio.jsp">Voltar ao Início</a>
+        
     </header>
 
     <section class="passagens">
+    	<a href="Inicio.jsp">Voltar ao Início</a>
         <c:choose>
             <c:when test="${not empty passagens}">
 			   	<table>
@@ -28,7 +29,6 @@
 			            <th>Data de Chegada</th>
 			            <th>Assento</th>
 			            <th>Placa do Veículo</th>
-			            <th>Capacidade do Veículo</th>
 			            <th>Preço</th>
 			        </tr>
 			    </thead>
@@ -42,7 +42,6 @@
 			                <td><fmt:formatDate value="${passagem.viagem.data_chegada}" pattern="dd/MM/yyyy HH:mm"/></td>
 			                <td>${passagem.assento.numero}</td>
 			                <td>${passagem.viagem.veiculo.placa}</td>
-			                <td>${passagem.viagem.veiculo.capacidade}</td>
 			                <td>R$ ${passagem.preco}</td>
 			            </tr>
 			        </c:forEach>
