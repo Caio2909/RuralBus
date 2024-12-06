@@ -18,17 +18,16 @@
 
 <section class="checkout-page">
         <div class="container">
-            <div class="checkout-layout">
-                <!-- Setar link para voltar � sele��o -->             
-				<a href="Inicio.jsp" class="back-arrow">
-                     Voltar para Sele��o
+        		<a href="Inicio.jsp" class="back-arrow">
+                     Voltar para Seleção
                 </a>
-                <!-- Formul�rio de preenchimento de dados -->
-                <div class="checkout-form">
+            <div class="checkout-layout">
+         
+                <div class="checkout-form">	
                 
                     <h2>Finalizar Compra</h2>
                     <form action="confirmarCompra.do" method="get">
-                        <h3>Preencha seus dados:</h3>
+                        <h3>Seus dados:</h3>
                         <label for="nome">Nome Completo:</label>
                         <input type="text" id="nome" name="nome" placeholder="Digite seu nome" value="${usuarioLogado.nome}" required readonly>
 

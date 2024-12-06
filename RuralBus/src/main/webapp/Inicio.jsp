@@ -19,12 +19,11 @@
             </div>
             <nav>
 			    <ul>
-			        <li><a href="#">Início</a></li>
 			        <li><a href="#">Sobre Nós</a></li>
 			        <li><a href="#">Ajuda</a></li>
 			        <li><a href="#">Contato</a></li>
 			        <c:if test="${not empty usuarioLogado}">
-			            <li><a href="minhasPassagens">Minhas Passagens</a></li>
+			            <li><a href="minhasPassagens.do">Minhas Passagens</a></li>
 			        </c:if>
 			    </ul>
 			</nav>
@@ -69,7 +68,7 @@
 	    		<label for="departure-date">Data de Ida:</label>
 	    		<input type="date" id="departure-date" name="departureDate" value="${param.departureDate}" required>
 	
-	    <button type="submit">Buscar Passagens</button>
+	    <button type="submit">Buscar Viagem</button>
 			</form>	
 
     </div>

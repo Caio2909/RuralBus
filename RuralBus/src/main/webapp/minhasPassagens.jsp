@@ -11,7 +11,11 @@
 </head>
 <body>
     <header>
-        <h1>Minhas Passagens</h1>
+        <div class="container">
+            <div class="logo">
+                <h1>Minhas Passagens</h1>
+            </div>
+        </div>
         
     </header>
 
@@ -34,7 +38,7 @@
 			    </thead>
 			    <tbody>
 			        <c:forEach var="passagem" items="${passagens}">
-			            <tr>
+			            <tr class="verPassagem" data-href="verPassagem.do?id=${passagem.id}">
 			                <td>${passagem.id}</td>
 			                <td>${passagem.viagem.partida}</td>
 			                <td>${passagem.viagem.destino}</td>
@@ -53,6 +57,17 @@
             </c:otherwise>
         </c:choose>
     </section>
+    <script>
+    	document.addEventListener("DOMContentLoaded", function() {
+        	const rows = document.querySelectorAll(".verPassagem");
+        	rows.forEach(row => {
+            	row.addEventListener("click", function() {
+               	window.location.href = this.dataset.href;
+            	});
+        	});
+    	});
+	</script>
+    
 
     <footer>
         <p>&copy; 2024 PassagensFácil. Todos os direitos reservados.</p>

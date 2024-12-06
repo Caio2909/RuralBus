@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AssentoDAO {
 	
@@ -55,7 +57,7 @@ public class AssentoDAO {
     }
 
     public boolean isOcupado(Assento assento) {
-        String SQL = "SELECT COUNT(*) FROM passagem WHERE numero = ? AND viagem_id = ?";
+        String SQL = "SELECT COUNT(*) FROM passagem p JOIN assento a ON p.assento_id = a.id where a.numero = ? and a.viagem_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL)) {
             ps.setInt(1, assento.getNumero());
@@ -71,4 +73,22 @@ public class AssentoDAO {
         }
         return false;
     }
+    public List<Integer> getAssentosOcupadosPorViagem(int viagemId) {
+        List<Integer> ocupados = new ArrayList<>();
+        String SQL = "SELECT numero FROM assento WHERE viagem_id = ? AND id IN (SELECT assento_id FROM passagem)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL)) {
+            
+            ps.setInt(1, viagemId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ocupados.add(rs.getInt("numero"));
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro ao buscar assentos ocupados: " + ex.getMessage());
+        }
+        return ocupados;
+    }
+
 }

@@ -18,6 +18,8 @@
 
 /* Estilo para o formulário de preenchimento de dados */
 .checkout-form {
+	margin-bottom: 10px;
+    margin-top: 10px;
     flex: 1;
     background-color: #292929; /* Fundo cinza-escuro */
     padding: 2rem;

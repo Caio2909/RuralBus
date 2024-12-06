@@ -6,22 +6,23 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 import classes.Cliente;
 import classes.Passagem;
+import dao.ClienteDAO;
 import dao.PassagemDAO;
+
 /**
- * Servlet implementation class minhasPassagens
+ * Servlet implementation class verPassagem
  */
-@WebServlet("/minhasPassagens.do")
-public class minhasPassagens extends HttpServlet {
+@WebServlet("/verPassagem.do")
+public class verPassagem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 private PassagemDAO passagemDAO = new PassagemDAO();   
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public minhasPassagens() {
+    public verPassagem() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +31,18 @@ public class minhasPassagens extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cliente cliente = (Cliente) request.getSession().getAttribute("usuarioLogado");
-        int id = cliente.getId();
-        if (cliente != null) {
-            List<Passagem> passagens = passagemDAO.getPassagensByClienteId(id);
-            request.setAttribute("passagens", passagens);
-        }
-
-        request.getRequestDispatcher("minhasPassagens.jsp").forward(request, response);
+        String idPassagem = request.getParameter("id");
+        PassagemDAO passagemDAO = new PassagemDAO();
+        ClienteDAO clienteDAO = new ClienteDAO();
+        
+        Passagem passagem = passagemDAO.getPassagemById(idPassagem);
+        Cliente cliente = clienteDAO.getClienteById(passagem.getClienteId());
+        
+        request.setAttribute("passagem", passagem);
+        request.setAttribute("cliente", cliente);
+        request.getRequestDispatcher("verPassagem.jsp").forward(request, response);
     }
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -46,5 +50,5 @@ public class minhasPassagens extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-    
+
 }

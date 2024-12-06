@@ -36,6 +36,9 @@ public class Passagem {
         return cliente;
     }
 
+	public int getClienteId() {
+		return cliente.getId();
+	}
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
