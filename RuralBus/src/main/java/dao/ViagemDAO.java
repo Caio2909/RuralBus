@@ -127,6 +127,8 @@ public class ViagemDAO {
                     viagem.setPreco(rs.getBigDecimal("preco"));
                     
                     Veiculo veiculo = new Veiculo();
+                    VeiculoDAO veiculoDAO = new VeiculoDAO();
+                    veiculo.setPlaca(veiculoDAO.getPlacaVeiculo(rs.getInt("veiculo_id")));
                     veiculo.setId(rs.getInt("veiculo_id"));
                     viagem.setVeiculo(veiculo);
                     

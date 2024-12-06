@@ -1,23 +1,29 @@
 package servlet;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
+
+import classes.Viagem;
+import dao.ViagemDAO;
 
 /**
- * Servlet implementation class processaLogout
+ * Servlet implementation class verViagens
  */
-@WebServlet("/processaLogout.do")
-public class processaLogout extends HttpServlet {
+@WebServlet("/verViagens.do")
+public class verViagens extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public processaLogout() {
+    public verViagens() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,21 +32,22 @@ public class processaLogout extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		String origem = request.getParameter("origin");
+        String destino = request.getParameter("destination");
+        String dataPartida = request.getParameter("departureDate");
+        ViagemDAO viagemDAO = new ViagemDAO();
+        List<Viagem> viagens = viagemDAO.buscarViagens(origem, destino, Date.valueOf(dataPartida));		
+        request.setAttribute("viagens", viagens);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("verViagens.jsp");
+        dispatcher.forward(request, response);    
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getSession().getAttribute("adminLogado") != null) {
-			request.getSession().invalidate();
-			response.sendRedirect("loginAdmin.jsp");
-		}
-		else {
-		request.getSession().invalidate();
-		response.sendRedirect("login.jsp");
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

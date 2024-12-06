@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
@@ -35,13 +36,11 @@ public class buscaViagens extends HttpServlet {
         String origem = request.getParameter("origin");
         String destino = request.getParameter("destination");
         String dataPartida = request.getParameter("departureDate");
-        
         ViagemDAO viagemDAO = new ViagemDAO();
-        List<Viagem> viagens = viagemDAO.buscarViagens(origem, destino, Date.valueOf(dataPartida));
-        
+        List<Viagem> viagens = viagemDAO.buscarViagens(origem, destino, Date.valueOf(dataPartida));		
         request.setAttribute("viagens", viagens);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Inicio.jsp");
-        dispatcher.forward(request, response);
+        dispatcher.forward(request, response);        
     }
 
 	/**

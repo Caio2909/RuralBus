@@ -2,10 +2,8 @@ package dao;
 
 import classes.Veiculo;
 import classes.Assento;
-import classes.Viagem;
 import util.DatabaseConnection;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class VeiculoDAO {
  
@@ -64,7 +62,23 @@ public class VeiculoDAO {
         
         return assentos;
     }
+    
+	public String getPlacaVeiculo(int veiculoId) {
+		try (Connection conn = DatabaseConnection.getConnection();
+				PreparedStatement ps = conn.prepareStatement("SELECT placa FROM veiculo WHERE id = ?")) {
 
+			ps.setInt(1, veiculoId);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return rs.getString("placa");
+				}
+			}
+		} catch (SQLException ex) {
+			System.err.println("Erro ao recuperar placa do veículo: " + ex.getMessage());
+		}
+		return null;
+	}
+    
     public boolean addVeiculo(Veiculo veiculo) {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(

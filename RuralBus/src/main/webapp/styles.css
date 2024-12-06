@@ -346,23 +346,25 @@ section.passagens tbody tr td:last-child {
 .back-arrow:hover {
     background-color: #004080; 
 }
-        .admin-options {
-           display: flex;
-    		margin-top: 2rem;
-    		justify-content: center;
-    		flex-direction: column;
-        }
+.admin-options {
+    display: flex;
+    margin-top: 2rem;
+    justify-content: center;
+    flex-direction: column;
+}
 
-        .admin-button {
-       		margin-top: 1%;
-            background-color: #007bff;
-            color: #fff;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
+.admin-button {
+	margin-right: 30%;
+    margin-left: 30%;
+    margin-top: 1%;
+    background-color: #007bff;
+    color: #fff;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
 
         .admin-button:hover {
             background-color: #0056b3;

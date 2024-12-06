@@ -14,14 +14,7 @@
         <div class="container">
             <div class="logo">
                 <h1><a href="#">PassagensFácil</a></h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#">Sobre Nós</a></li>
-                    <li><a href="#">Ajuda</a></li>
-                    <li><a href="#">Contato</a></li>
-                </ul>
-            </nav>
+            </div>          
             <div class="auth">
                 <c:if test="${not empty adminLogado}">
                     <p>Bem-vindo, ${adminLogado.nome.split(' ')[0]}!</p>
@@ -41,7 +34,7 @@
 
             <div class="admin-options">
                 <a href="adicionarViagem.jsp" class="admin-button">Adicionar Viagem</a>
-                <a href="verViagens.do" class="admin-button">Ver Viagens</a>
+                <a href="verViagens.jsp" class="admin-button">Ver Viagens</a>
                 <a href="adicionarAdmin.jsp" class="admin-button">Adicionar Administrador</a>
             </div>
         </div>

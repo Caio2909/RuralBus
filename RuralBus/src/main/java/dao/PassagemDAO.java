@@ -141,7 +141,6 @@ public class PassagemDAO {
                     assento.setNumero(rs.getInt("numero"));
                     assento.setViagem(viagem);
                     
-                    boolean isOcupado = rs.getInt("assento_ocupado") > 0;
                     
                     Cliente cliente = new Cliente();
                     cliente.setId(rs.getInt("cliente_id"));
