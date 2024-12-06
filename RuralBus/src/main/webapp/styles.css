@@ -93,12 +93,23 @@ header .auth select {
     padding: 2rem 0;
     flex: 1;
 }
-
+.hero2 {
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 0;
+    flex: 1;
+}
 .hero h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
 }
-
+.hero2 h2 {
+	color: rgba(0, 0, 0, 0.7);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
 .hero .search-form {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 1.5rem;
@@ -335,4 +346,29 @@ section.passagens tbody tr td:last-child {
 .back-arrow:hover {
     background-color: #004080; 
 }
+        .admin-options {
+           display: flex;
+    		margin-top: 2rem;
+    		justify-content: center;
+    		flex-direction: column;
+        }
+
+        .admin-button {
+       		margin-top: 1%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-button:hover {
+            background-color: #0056b3;
+        }
+
+        .admin-button:active {
+            background-color: #004080;
+        }
 

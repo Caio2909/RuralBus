@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class VeiculoDAO {
  
-    private Assento[] getAssentosParaVeiculo(int veiculoId, int capacidade) {
+    public Assento[] getAssentosParaVeiculo(int veiculoId, int capacidade) {
         Assento[] assentos = new Assento[capacidade];
         
         try (Connection conn = DatabaseConnection.getConnection();
