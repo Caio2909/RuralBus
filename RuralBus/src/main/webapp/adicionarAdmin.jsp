@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo</title>
+    <title>Adicionar Administrador</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
         <div class="container">
             <div class="logo">
                 <h1><a href="#">PassagensFácil</a></h1>
-            </div>          
+            </div>
             <div class="auth">
                 <c:if test="${not empty adminLogado}">
                     <p>Bem-vindo, ${adminLogado.nome.split(' ')[0]}!</p>
@@ -22,11 +22,6 @@
                         <button type="submit">Logout</button>
                     </form>
                 </c:if>
-                <c:if test="${empty adminLogado}">
-			    	<script>
-			       	 	window.location.href = "loginAdmin.jsp";
-			    	</script>
-				</c:if>
             </div>
         </div>
     </header>
@@ -34,14 +29,20 @@
     <!-- Conteúdo Principal -->
     <section class="hero2">
         <div class="container">
-            <h2>Painel Administrativo</h2>
-            <p style="color: rgba(0, 0, 0, 0.7)">Bem-vindo ao painel de controle! Escolha uma das opções abaixo:</p>
+            <h2>Adicionar Administrador</h2>
+            <p style="color: rgba(0, 0, 0, 0.7)">Preencha as informações abaixo para adicionar um novo administrador:</p>
 
-            <div class="admin-options">
-                <a href="adicionarViagem.jsp" class="admin-button">Adicionar Viagem</a>
-                <a href="verViagens.jsp" class="admin-button">Ver Viagens</a>
-                <a href="adicionarAdmin.jsp" class="admin-button">Adicionar Administrador</a>
-            </div>
+            <form action="processaAdicionarAdmin.do" method="post" class="admin-form">
+                <label style="color:rgba(0, 0, 0, 0.7)" for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="nome" required placeholder="Digite o nome completo">
+
+                <label style="color:rgba(0, 0, 0, 0.7)" for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required placeholder="Digite a senha">
+
+                <button type="submit" class="admin-button">Adicionar Administrador</button><br>
+                
+            </form>
+            <a href="inicioAdmin.jsp" style="margin-top: 2rem; display:flex; margin-left:39%;margin-right:39%;justify-content: center" class="admin-button">Voltar ao Painel</a>
         </div>
     </section>
 
@@ -61,6 +62,5 @@
             </div>
         </div>
     </footer>
-
 </body>
 </html>
