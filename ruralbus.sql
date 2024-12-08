@@ -28,7 +28,7 @@ CREATE TABLE `admin` (
   `senha` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'caio','0000');
+INSERT INTO `admin` VALUES (1,'caio','0000'),(2,'Pedro','1234');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,7 +55,7 @@ CREATE TABLE `assento` (
   PRIMARY KEY (`id`),
   KEY `viagem_id` (`viagem_id`),
   CONSTRAINT `assento_ibfk_1` FOREIGN KEY (`viagem_id`) REFERENCES `viagem` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `assento` (
 
 LOCK TABLES `assento` WRITE;
 /*!40000 ALTER TABLE `assento` DISABLE KEYS */;
-INSERT INTO `assento` VALUES (1,53,12),(2,53,1),(3,53,15);
+INSERT INTO `assento` VALUES (1,53,12),(2,53,1),(3,53,15),(4,64,10),(5,64,11);
 /*!40000 ALTER TABLE `assento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +123,7 @@ CREATE TABLE `passagem` (
 
 LOCK TABLES `passagem` WRITE;
 /*!40000 ALTER TABLE `passagem` DISABLE KEYS */;
-INSERT INTO `passagem` VALUES ('0788cf54-b40f-11ef-a411-04d9f50a1039',10,53,3),('2bf491c6-b374-11ef-8eda-04d9f50a1039',3,53,1),('53db7f02-b377-11ef-8eda-04d9f50a1039',3,53,2);
+INSERT INTO `passagem` VALUES ('0788cf54-b40f-11ef-a411-04d9f50a1039',10,53,3),('0f0fad86-b4f9-11ef-8c7b-04d9f50a1039',3,64,4),('29a909d8-b4f9-11ef-8c7b-04d9f50a1039',3,64,5),('2bf491c6-b374-11ef-8eda-04d9f50a1039',3,53,1),('53db7f02-b377-11ef-8eda-04d9f50a1039',3,53,2);
 /*!40000 ALTER TABLE `passagem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +170,7 @@ CREATE TABLE `viagem` (
   PRIMARY KEY (`id`),
   KEY `veiculo_id` (`veiculo_id`),
   CONSTRAINT `viagem_ibfk_1` FOREIGN KEY (`veiculo_id`) REFERENCES `veiculo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,7 +179,7 @@ CREATE TABLE `viagem` (
 
 LOCK TABLES `viagem` WRITE;
 /*!40000 ALTER TABLE `viagem` DISABLE KEYS */;
-INSERT INTO `viagem` VALUES (53,'São Paulo - SP','Rio de Janeiro - RJ','2024-12-10 08:00:00','2024-12-10 18:00:00',1,150.00),(54,'Rio de Janeiro - RJ','Belo Horizonte - MG','2024-12-11 07:00:00','2024-12-11 13:00:00',2,120.00),(55,'Belo Horizonte - MG','São Paulo - SP','2024-12-12 09:00:00','2024-12-12 17:00:00',3,140.00),(56,'São Paulo - SP','Curitiba - PR','2024-12-13 10:00:00','2024-12-13 15:00:00',4,80.00),(57,'Curitiba - PR','Florianópolis - SC','2024-12-14 06:00:00','2024-12-14 08:00:00',5,50.00),(58,'Salvador - BA','Recife - PE','2024-12-15 08:30:00','2024-12-15 13:00:00',1,130.00),(59,'Fortaleza - CE','Natal - RN','2024-12-16 09:00:00','2024-12-16 12:30:00',2,100.00),(60,'Porto Alegre - RS','Florianópolis - SC','2024-12-17 11:00:00','2024-12-17 14:00:00',3,110.00),(61,'Manaus - AM','Belém - PA','2024-12-18 14:00:00','2024-12-18 18:00:00',4,200.00),(62,'Goiania - GO','Brasília - DF','2024-12-19 16:00:00','2024-12-19 18:00:00',5,90.00);
+INSERT INTO `viagem` VALUES (53,'São Paulo - SP','Rio de Janeiro - RJ','2024-12-10 08:00:00','2024-12-10 18:00:00',1,150.00),(54,'Rio de Janeiro - RJ','Belo Horizonte - MG','2024-12-11 07:00:00','2024-12-11 13:00:00',2,120.00),(55,'Belo Horizonte - MG','São Paulo - SP','2024-12-12 09:00:00','2024-12-12 17:00:00',3,140.00),(56,'São Paulo - SP','Curitiba - PR','2024-12-13 10:00:00','2024-12-13 15:00:00',4,80.00),(57,'Curitiba - PR','Florianópolis - SC','2024-12-14 06:00:00','2024-12-14 08:00:00',5,50.00),(58,'Salvador - BA','Recife - PE','2024-12-15 08:30:00','2024-12-15 13:00:00',1,130.00),(59,'Fortaleza - CE','Natal - RN','2024-12-16 09:00:00','2024-12-16 12:30:00',2,100.00),(60,'Porto Alegre - RS','Florianópolis - SC','2024-12-17 11:00:00','2024-12-17 14:00:00',3,110.00),(61,'Manaus - AM','Belém - PA','2024-12-18 14:00:00','2024-12-18 18:00:00',4,200.00),(62,'Goiania - GO','Brasília - DF','2024-12-19 16:00:00','2024-12-19 18:00:00',5,90.00),(63,'Seropédica - RJ','Xique-Xique - BA','2024-12-13 00:00:00','2024-12-18 00:00:00',1,269.99),(64,'Xique-Xique - BA','Seropédica - RJ','2024-12-18 21:07:00','2024-12-22 21:07:00',1,269.99);
 /*!40000 ALTER TABLE `viagem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -192,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-06 20:36:13
+-- Dump completed on 2024-12-07 21:36:37
