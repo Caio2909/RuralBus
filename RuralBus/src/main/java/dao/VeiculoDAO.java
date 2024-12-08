@@ -4,9 +4,34 @@ import classes.Veiculo;
 import classes.Assento;
 import util.DatabaseConnection;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VeiculoDAO {
- 
+	
+
+	public List<Veiculo> getVeiculos() {
+        List<Veiculo> veiculos = new ArrayList<>();
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT id, placa, capacidade FROM veiculo")) {
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Veiculo veiculo = new Veiculo();
+                    veiculo.setId(rs.getInt("id"));
+                    veiculo.setPlaca(rs.getString("placa"));
+                    veiculo.setCapacidade(rs.getInt("capacidade"));
+                    
+                    veiculos.add(veiculo);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro ao recuperar veículos: " + ex.getMessage());
+        }
+        
+        return veiculos;
+	}
     public Assento[] getAssentosParaVeiculo(int veiculoId, int capacidade) {
         Assento[] assentos = new Assento[capacidade];
         
@@ -127,5 +152,24 @@ public class VeiculoDAO {
             System.err.println("Erro ao deletar veículo: " + ex.getMessage());
         }
         return false;
+    }
+    public Veiculo getVeiculoById(int veiculoId) {
+    	   	try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT id, placa, capacidade FROM veiculo WHERE id = ?")) {
+            
+            ps.setInt(1, veiculoId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Veiculo veiculo = new Veiculo();
+                    veiculo.setId(rs.getInt("id"));
+                    veiculo.setPlaca(rs.getString("placa"));
+                    veiculo.setCapacidade(rs.getInt("capacidade"));
+                    return veiculo;
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro ao recuperar veículo: " + ex.getMessage());
+        }
+        return null;
     }
 }

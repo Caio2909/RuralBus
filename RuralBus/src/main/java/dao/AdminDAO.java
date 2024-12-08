@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AdminDAO {
+	
     public ArrayList<Admin> readAll() {
         ArrayList<Admin> lista = new ArrayList<>();
         String SQL = "SELECT * FROM admin";
@@ -46,7 +47,7 @@ public class AdminDAO {
                 }
             }
         } catch (SQLException ex) {
-            System.err.println("Erro ao autenticar usuário: " + ex.getMessage());
+            System.err.println("Erro ao autenticar administrador: " + ex.getMessage());
         }
         return null; 
     }
@@ -60,9 +61,9 @@ public class AdminDAO {
             ps.setString(2, adm.getSenha());
 
             int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0; // Retorna true se a inserção foi bem-sucedida
+            return rowsAffected > 0;
         } catch (SQLException ex) {
-            System.err.println("Erro ao adicionar usuário: " + ex.getMessage());
+            System.err.println("Erro ao adicionar administrador: " + ex.getMessage());
             return false;
         }
     }
@@ -75,9 +76,9 @@ public class AdminDAO {
             ps.setLong(1, id);
 
             int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0; // Retorna true se a remoção foi bem-sucedida
+            return rowsAffected > 0; 
         } catch (SQLException ex) {
-            System.err.println("Erro ao remover usuário: " + ex.getMessage());
+            System.err.println("Erro ao remover administrador: " + ex.getMessage());
             return false;
         }
     }

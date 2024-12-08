@@ -23,8 +23,8 @@ public class ViagemDAO {
     
             ps.setString(1, viagem.getPartida());
             ps.setString(2, viagem.getDestino());
-            ps.setDate(3, new java.sql.Date(viagem.getData_partida().getTime()));
-            ps.setDate(4, new java.sql.Date(viagem.getData_chegada().getTime()));
+            ps.setTimestamp(3, new java.sql.Timestamp(viagem.getData_partida().getTime()));
+            ps.setTimestamp(4, new java.sql.Timestamp(viagem.getData_chegada().getTime()));
             ps.setInt(5, viagem.getVeiculo().getId());
             ps.setBigDecimal(6, viagem.getPreco());
             return ps.executeUpdate() > 0;

@@ -5,7 +5,7 @@ function getViagemIdURL() {
 
 document.addEventListener("DOMContentLoaded", () => {
     const seatSelect = document.getElementById("seatNumber");
-    const idViagem = 53;
+    const idViagem = getViagemIdURL();
 
     fetch(`http://localhost:8080/RuralBus/assentosOcupados.do?viagemId=${idViagem}`)
         .then(response => response.json())
